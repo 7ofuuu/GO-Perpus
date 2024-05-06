@@ -6,6 +6,8 @@ import (
 	"os"
 	"sort"
 	"strings"
+
+	"github.com/olekukonko/tablewriter"
 )
 
 // Book struct represents the details of a book
@@ -182,14 +184,10 @@ func main() {
 			keyword := getInput("Enter title or author to search:")
 			searchResults := library.SearchBooks(keyword)
 			fmt.Println("Search results:")
-			for _, book := range searchResults {
-				fmt.Printf("Title: %s, Author: %s, ISBN: %s, Copies: %d\n", book.Title, book.Author, book.ISBN, book.Copies)
-			}
+			displayBooks(searchResults)
 		case "5":
 			fmt.Println("All Books:")
-			for _, book := range library.Books {
-				fmt.Printf("Title: %s, Author: %s, ISBN: %s, Copies: %d\n", book.Title, book.Author, book.ISBN, book.Copies)
-			}
+			displayBooks(library.Books)
 		case "6":
 			fmt.Println("Exiting...")
 			// Save library data to file before exiting
@@ -201,4 +199,14 @@ func main() {
 			fmt.Println("Invalid choice. Please enter a number between 1 and 6.")
 		}
 	}
+}
+
+// displayBooks displays a list of books in a table format
+func displayBooks(books []Book) {
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Title", "Author", "ISBN", "Copies"})
+	for _, book := range books {
+		table.Append([]string{book.Title, book.Author, book.ISBN, fmt.Sprintf("%d", book.Copies)})
+	}
+	table.Render()
 }

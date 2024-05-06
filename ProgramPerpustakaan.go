@@ -142,6 +142,10 @@ func main() {
 			fmt.Sscanf(copies, "%d", &copiesInt)
 			library.AddBook(Book{Title: title, Author: author, ISBN: isbn, Copies: copiesInt})
 		}
+		// Save library data to file after adding sample books
+		if err := library.SaveLibrary("library.txt"); err != nil {
+			fmt.Println("Error saving library data:", err)
+		}
 	}
 
 	for {
@@ -166,10 +170,18 @@ func main() {
 			fmt.Sscanf(copies, "%d", &copiesInt)
 			library.AddBook(Book{Title: title, Author: author, ISBN: isbn, Copies: copiesInt})
 			fmt.Println("Book added successfully.")
+			// Save library data to file after adding a new book
+			if err := library.SaveLibrary("library.txt"); err != nil {
+				fmt.Println("Error saving library data:", err)
+			}
 		case "2":
 			isbn := getInput("Enter ISBN of the book to remove:")
 			library.RemoveBook(isbn)
 			fmt.Println("Book removed successfully.")
+			// Save library data to file after removing a book
+			if err := library.SaveLibrary("library.txt"); err != nil {
+				fmt.Println("Error saving library data:", err)
+			}
 		case "3":
 			isbn := getInput("Enter ISBN of the book to edit:")
 			newTitle := getInput("New Title:")
@@ -180,6 +192,10 @@ func main() {
 			fmt.Sscanf(newCopies, "%d", &newCopiesInt)
 			library.EditBook(isbn, Book{Title: newTitle, Author: newAuthor, ISBN: newISBN, Copies: newCopiesInt})
 			fmt.Println("Book edited successfully.")
+			// Save library data to file after editing a book
+			if err := library.SaveLibrary("library.txt"); err != nil {
+				fmt.Println("Error saving library data:", err)
+			}
 		case "4":
 			keyword := getInput("Enter title or author to search:")
 			searchResults := library.SearchBooks(keyword)
@@ -190,10 +206,6 @@ func main() {
 			displayBooks(library.Books)
 		case "6":
 			fmt.Println("Exiting...")
-			// Save library data to file before exiting
-			if err := library.SaveLibrary("library.txt"); err != nil {
-				fmt.Println("Error saving library data:", err)
-			}
 			return
 		default:
 			fmt.Println("Invalid choice. Please enter a number between 1 and 6.")

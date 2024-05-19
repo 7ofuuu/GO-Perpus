@@ -1,6 +1,4 @@
-The Great Gatsby,F. Scott Fitzgerald,9780743273565,4
-To Kill a Mockingbird,Harper Lee,9780061120084,2
-agus,agus,010139083291710958475984759832453,100
-ilham,ilham,103023023023,1
-agus,agusagus,9w218392392832891,300
-abcde,fadhli,39123984732,100
+a,a,1,6
+b,b,2,9
+c,c,3,9
+agus naik ke gunung,aguisu,1010102020,100
